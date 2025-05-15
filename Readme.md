@@ -17,3 +17,40 @@ I used this technolgies
 - GraphQL (`express-graphql`)
 - In-Memory Store (`Map` per user token)
 - Jest + Supertest for Integration/Unit testing
+use this graphql commands
+- query {
+  searchItem(id: "1") {
+    id
+    name
+    quantity
+    unitPrice
+  }
+}
+mutation {
+  addItem(id: "1", name: "Pen", quantity: 2, unitPrice: 1.5) {
+    id
+    name
+    quantity
+    unitPrice
+  }
+}
+mutation {
+  updateItem(id: "1", quantity: 5) {
+    id
+    quantity
+  }
+}
+mutation {
+  removeItem(id: "1")
+}
+query {
+  getCart {
+    items {
+      id
+      name
+      quantity
+      unitPrice
+    }
+    total
+  }
+}
