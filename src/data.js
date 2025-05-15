@@ -1,4 +1,4 @@
-const carts = new Map(); // key: userId, value: { items: [] }
+const carts = new Map();
 
 module.exports = {
   getCart(userId) {

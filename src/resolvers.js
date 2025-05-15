@@ -7,7 +7,7 @@ function getCartTotal(items) {
 module.exports = {
   getCart: (_, __, { userId }) => {
     const cart = store.getCart(userId);
-    return { items: cart.items, totalprice: getCartTotal(cart.items) };
+    return { items: cart.items, total: getCartTotal(cart.items) };
   },
   addItem: (_, { id, name, quantity, unitPrice }, { userId }) => {
     if (quantity < 0) throw new Error('Quantity must be positive');
@@ -36,5 +36,11 @@ module.exports = {
   clearCart: (_, __, { userId }) => {
     store.clearCart(userId);
     return 'Cart cleared';
+  },
+  searchItem:(_,__,{userId})=>{
+    store.getCart(userId);
+    const index =cart.items.findIndex(i=>i.id===id);
+    if(index=== -1) throw new error ('item is missing Error 404');
+    return item;
   }
 };

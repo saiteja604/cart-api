@@ -1,6 +1,5 @@
 const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLList, GraphQLInt, GraphQLFloat, GraphQLNonNull } = require('graphql');
-const resolvers = require('./valid_error');
-const valid_error = require('./valid_error');
+const resolvers = require('./resolvers');
 
 const ItemType = new GraphQLObjectType({
   name: 'Item',
@@ -25,7 +24,14 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     getCart: {
       type: CartType,
-      resolve: valid_error.getCart
+      resolve: resolvers.getCart
+    },
+    searchItem: {
+      type: ItemType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLString) }
+      },
+      resolve: resolvers.searchItem
     }
   }
 });
@@ -41,7 +47,7 @@ const RootMutation = new GraphQLObjectType({
         quantity: { type: GraphQLNonNull(GraphQLInt) },
         unitPrice: { type: GraphQLNonNull(GraphQLFloat) }
       },
-      resolve: valid_error.addItem
+      resolve: resolvers.addItem
     },
     updateItem: {
       type: ItemType,
@@ -49,16 +55,24 @@ const RootMutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLString) },
         quantity: { type: GraphQLNonNull(GraphQLInt) }
       },
-      resolve: valid_error.updateItem
+      resolve: resolvers.updateItem
     },
     removeItem: {
       type: GraphQLString,
       args: { id: { type: GraphQLNonNull(GraphQLString) } },
-      resolve: valid_error.removeItem
+      resolve: resolvers.removeItem
     },
     clearCart: {
       type: GraphQLString,
-      resolve: valid_error.clearCart
+      resolve: resolvers.clearCart
+    },
+    searchCart:{
+        type:ItemType,
+        args:{
+            id:{type: GraphQLNonNull(GraphQLString)},
+        },
+        resolve: resolvers.searchItem
+         
     }
   }
 });
